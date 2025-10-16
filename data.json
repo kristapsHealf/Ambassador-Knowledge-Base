@@ -4,8 +4,8 @@
         "id": "001",
         "title": "Customer can't redeem gift (SF sync issue)",
         "type": "Gifting",
-        "frequency": "●●●",
-        "priority": "P2",
+        "frequency": "●●",
+        "priority": "P3",
         "quickCheck": [
           "Check gifting campaign status",
           "Verify user in SF or SS",
@@ -15,28 +15,20 @@
         "context": "This occurs when a customer receives a gift but cannot redeem it due to synchronization issues between our system and Superfiliate. Often the user hasn't been properly onboarded or there's a campaign setup problem.",
         "triage": [
           "Log into Superfiliate and search for the customer's email",
-          "Check if they appear in the gifting campaign roster",
+          "Check if they appear in active gifting campaign or Milestone is claimed",
+        "If present but inactive, check campaign dates and settings",
           "Verify their status in Social Snowball as backup",
           "If missing from both, they need onboarding",
-          "If present but inactive, check campaign dates and settings"
         ],
         "resolution": [
-          "Navigate to practitioners.superfiliate.com/portal/onboarding",
-          "Add the customer using their exact email address",
-          "Assign them to the appropriate gifting campaign",
-          "Verify activation status shows as \"Active\"",
-          "Test the gift redemption link in incognito mode",
-          "Send confirmation macro to customer"
+          "Either add to gifting campaign or if Shopify Issue tag @Kristaps",
         ],
-        "escalate": "Escalate to Superfiliate support if: user appears correctly configured but gift still won't redeem after 24 hours, or if you see error messages in the SF dashboard.",
+        "escalate": "Escalate to Superfiliate support if: user appears correctly configured but gift still won't redeem after 24 hours, or if you see error messages when trying to claim gift (they send screenshot for example)",
         "mistakes": [
           "Forgetting to check BOTH SF and SS systems",
-          "Adding user to wrong campaign",
-          "Not verifying the activation completed",
-          "Sending response before testing the fix"
+          "Adding user to wrong campaign"
         ],
-        "macro": "Hi [NAME],\n\nThanks for reaching out about redeeming your gift.\n\nI've looked into this and found that your account needed to be added to our gifting system. I've now onboarded you to Superfiliate and you should be able to redeem your gift.\n\nPlease try using this link: [GIFT LINK]\n\nThe gift should apply automatically when you complete checkout. If you continue to experience any issues, please don't hesitate to reach back out.\n\nWith Healf,\n[YOUR NAME]",
-        "prevention": "Ensure all gifting campaigns have automated onboarding flows. Consider adding a check during the gift creation process to verify recipient accounts exist.",
+        "macro": "Hi [NAME],\n\nThanks for reaching out about redeeming your gift.\n\nHey — I looked into this and you should now be able to log in to your portal and redeem the gift there.\n\nYou can log in here: [PORTAL LINK]\n\nIf you continue to experience any issues, please reach back out.\n\nWith Healf,\n[YOUR NAME]"
         "updated": "2024-10-15"
       },
       {
@@ -44,6 +36,7 @@
         "title": "Gift redemption blocked (product issue)",
         "type": "Gifting",
         "frequency": "●●",
+        "priority": "P2",
         "quickCheck": [
           "Audit Shopify products",
           "Check campaign + user active",
@@ -75,7 +68,6 @@
           "Forgetting to test after making changes"
         ],
         "macro": "Hi [NAME],\n\nThanks for your patience. I've investigated the gift redemption issue.\n\nI found that [SPECIFIC ISSUE - e.g., \"the product was temporarily out of stock\" or \"the campaign settings needed adjustment\"]. I've now resolved this and your gift should work properly.\n\nPlease try again: [GIFT LINK]\n\nSelect your items and proceed to checkout. The discount will apply automatically. Let me know if you need any assistance!\n\nWith Healf,\n[YOUR NAME]",
-        "prevention": "Regular audits of Shopify product availability. Set up alerts for out-of-stock items in active gifting campaigns.",
         "updated": "2024-10-14"
       },
       {
@@ -83,6 +75,7 @@
         "title": "Customer reports discount not applying",
         "type": "Discount",
         "frequency": "●●●",
+        "priority": "P2",
         "quickCheck": [
           "Verify in SF/SS systems",
           "Explain auto-apply popup",
@@ -110,7 +103,6 @@
           "Not actually testing their link before responding"
         ],
         "macro": "Hi [NAME],\n\nThanks for reaching out. I'm writing to confirm how the 10% client discount works on your Healf link.\n\nWhen clients shop through your unique link, the 10% discount is applied automatically. A small pop-up in the bottom left confirms it's active and then closes on its own.\n\nClients do not need to enter a code. Each client is assigned a one-time code (starting with your prefix [CODE PREFIX], followed by unique digits) that applies automatically to the checkout when they use your link. The code cannot be reused and only works when the client accesses the site via your unique link.\n\n**Important:** The discount applies to one-time purchases only. It does not apply to subscriptions.\n\nI've tested your link and confirmed it's working properly. If your client continues to have issues, please ask them to:\n1. Use your unique link in a private/incognito browser\n2. Ensure they're purchasing one-time products (not subscriptions)\n3. Look for the small confirmation popup in the bottom left\n\nLet me know if there's anything else I can clarify.\n\nBest,\n[YOUR NAME]",
-        "prevention": "Add clearer messaging on the checkout page about subscription exclusions. Consider adding a FAQ section to practitioner dashboards.",
         "updated": "2024-10-16"
       },
       {
@@ -250,7 +242,8 @@
         "id": "008",
         "title": "Wrong link used since migration",
         "type": "Technical",
-        "frequency": "●",
+        "priority": "P1",  
+        "frequency": "●●",
         "quickCheck": [
           "Identify old vs new link",
           "Update in all channels",
@@ -261,7 +254,7 @@
         "triage": [
           "Identify which old link they've been using",
           "Check if old link redirects properly",
-          "Review attribution data for missed commissions",
+          "Review attribution data for missed commissions. This is crucial and let's ensure no one is upset about losing comission here",
           "Get list of all channels where old link was shared"
         ],
         "resolution": [
