@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambassador Knowledge Bank</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            background: #fafafa;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab {
+            padding: 16px 24px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 13px;
+            font-weight: 500;
+            color: #616161;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: #1a1a1a;
+            background: #f5f5f5;
+        }
+
+        .tab.active {
+            color: #1a1a1a;
+            border-bottom-color: #1a1a1a;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Knowledge Index Table */
+        .table-container {
+            overflow-x: auto;
+            padding: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        th {
+            text-align: left;
+            padding: 16px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f5f5f5;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        td {
+            padding: 16px 12px;
+            font-size: 10pt;
+            color: #2d2d2d;
+            vertical-align: top;
+        }
+
+        .kb-number {
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 11px;
+        }
+
+        .scenario-title {
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .type-gifting { background: #e3f2fd; color: #1565c0; }
+        .type-discount { background: #f3e5f5; color: #6a1b9a; }
+        .type-account { background: #e8f5e9; color: #2e7d32; }
+        .type-technical { background: #ffebee; color: #c62828; }
+
+        .priority-p1 { background: #ffebee; color: #c62828; }
+        .priority-p2 { background: #fff3e0; color: #e65100; }
+        .priority-p3 { background: #e3f2fd; color: #1565c0; }
+        .priority-p4 { background: #f5f5f5; color: #616161; }
+
+        .frequency {
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .freq-common { color: #000000; }
+        .freq-occasional { color: #616161; }
+        .freq-rare { color: #bdbdbd; }
+
+        .quick-check {
+            line-height: 1.8;
+            font-size: 10pt;
+        }
+
+        .quick-check-item {
+            margin-bottom: 4px;
+        }
+
+        .resource-icons {
+            display: flex;
+            gap: 12px;
+            font-size: 18px;
+        }
+
+        .resource-icons a {
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .resource-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        /* Detail View */
+        .detail-view {
+            padding: 48px 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .detail-header {
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .detail-kb-number {
+            font-size: 14px;
+            font-weight: 600;
+            color: #616161;
+            margin-bottom: 8px;
+        }
+
+        .detail-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .detail-section {
+            margin-bottom: 40px;
+        }
+
+        .detail-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #616161;
+            margin-bottom: 16px;
+        }
+
+        .detail-section p, .detail-section ul {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #2d2d2d;
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .detail-section li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .detail-section li:before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        .macro-box {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 24px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #1a1a1a;
+            white-space: pre-wrap;
+        }
+
+        .macro-meta {
+            font-size: 11px;
+            color: #616161;
+            margin-top: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Glossary */
+        .glossary-section {
+            padding: 48px 64px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .glossary-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: #1a1a1a;
+        }
+
+        .glossary-category {
+            margin-bottom: 48px;
+        }
+
+        .glossary-category h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #1a1a1a;
+        }
+
+        .glossary-item {
+            margin-bottom: 24px;
+            padding-left: 20px;
+        }
+
+        .glossary-term {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .glossary-definition {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #2d2d2d;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #1565c0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 48px;
+            color: #616161;
+        }
+
+        .error {
+            text-align: center;
+            padding: 48px;
+            color: #c62828;
+        }
+
+        @media (max-width: 768px) {
+            .detail-view, .glossary-section {
+                padding: 24px;
+            }
+            
+            .table-container {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('index')">Knowledge Index</button>
+            <button class="tab" onclick="switchTab('glossary')">Quick Reference</button>
+        </div>
+
+        <!-- Tab 1: Knowledge Index -->
+        <div id="index" class="tab-content active">
+            <div class="table-container">
+                <div class="loading" id="loading">Loading knowledge bank...</div>
+                <div class="error" id="error" style="display: none;"></div>
+                <table id="scenarios-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">#</th>
+                            <th style="width: 30%;">Scenario</th>
+                            <th style="width: 110px;">Type</th>
+                            <th style="width: 70px;">Priority</th>
+                            <th style="width: 90px;">Frequency</th>
+                            <th style="width: 30%;">Quick Check</th>
+                            <th style="width: 100px;">Resources</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scenarios-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 2: Quick Reference Glossary -->
+        <div id="glossary" class="tab-content">
+            <div class="glossary-section">
+                <h2>Quick Reference Glossary</h2>
+                
+                <div class="glossary-category">
+                    <h3>Categories & Definitions</h3>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">GIFTING</div>
+                        <div class="glossary-definition">Customer issues related to gift card redemption, gifting campaigns, or Superfiliate sync problems.</div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">DISCOUNT</div>
+                        <div class="glossary-definition">Issues with discount codes, promotional offers, percentage-off calculations, or code ownership.</div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">ACCOUNT</div>
+                        <div class="glossary-definition">Login problems, credential issues, practitioner onboarding, profile management, or storefront setup.</div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">TECHNICAL</div>
+                        <div class="glossary-definition">Site bugs, payment processing errors, integration failures, or migration issues.</div>
+                    </div>
+                </div>
+
+                <div class="glossary-category">
+                    <h3>Tools & Portals</h3>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">Superfiliate (SF)</div>
+                        <div class="glossary-definition">
+                            Portal: practitioners.superfiliate.com/portal/onboarding<br>
+                            Purpose: Practitioner referral tracking and commission management
+                        </div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">Social Snowball (SS)</div>
+                        <div class="glossary-definition">
+                            Portal: healf.superfiliate.com/portal<br>
+                            Purpose: Ambassador program management and campaign tracking
+                        </div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">Shopify</div>
+                        <div class="glossary-definition">
+                            Purpose: Product catalog management, inventory, and order processing
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glossary-category">
+                    <h3>Frequency Indicators</h3>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">Common (●●●)</div>
+                        <div class="glossary-definition">Seen weekly or more. New ambassadors should master these first.</div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">Occasional (●●)</div>
+                        <div class="glossary-definition">Appears monthly. Learn after mastering common scenarios.</div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">Rare (●)</div>
+                        <div class="glossary-definition">Quarterly or less. Reference as needed, not critical for onboarding.</div>
+                    </div>
+                </div>
+
+                <div class="glossary-category">
+                    <h3>Priority Levels</h3>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">P1 - Urgent</div>
+                        <div class="glossary-definition">Critical business impact. Customer completely blocked or revenue at risk. Response required same day.</div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">P2 - High</div>
+                        <div class="glossary-definition">Significant impact. Customer frustrated but has workaround available. Response within 24 hours.</div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">P3 - Normal</div>
+                        <div class="glossary-definition">Minor friction. No blocker, general questions or guidance. Response within 48 hours.</div>
+                    </div>
+                    
+                    <div class="glossary-item">
+                        <div class="glossary-term">P4 - Low</div>
+                        <div class="glossary-definition">Nice-to-have. Educational questions or feature requests. Response as time permits.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail View (Hidden by default) -->
+        <div id="detail-view" class="tab-content" style="display: none;">
+            <div class="detail-view">
+                <a href="#" class="back-link" onclick="showIndex(); return false;">← Back to Knowledge Index</a>
+                <div id="detail-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let scenariosData = null;
+
+        // Load data from JSON file
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load data');
+                }
+                scenariosData = await response.json();
+                renderTable();
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('scenarios-table').style.display = 'table';
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').textContent = 
+                    'Error loading knowledge bank. Please ensure data.json exists in the same folder.';
+                console.error('Error loading data:', error);
+            }
+        }
+
+        // Render table from data
+        function renderTable() {
+            const tbody = document.getElementById('scenarios-body');
+            tbody.innerHTML = '';
+
+            scenariosData.scenarios.forEach(scenario => {
+                const tr = document.createElement('tr');
+                tr.onclick = () => showDetail(scenario.id);
+
+                const typeClass = `type-${scenario.type.toLowerCase()}`;
+                const priorityClass = `priority-${scenario.priority.toLowerCase()}`;
+                const freqClass = scenario.frequency === '●●●' ? 'freq-common' : 
+                                 scenario.frequency === '●●' ? 'freq-occasional' : 'freq-rare';
+
+                const quickCheckHtml = scenario.quickCheck
+                    .map((item, i) => `<div class="quick-check-item">${i + 1}. ${item}</div>`)
+                    .join('');
+
+                const loomIcon = scenario.loomUrl ? 
+                    `<a href="${scenario.loomUrl}" target="_blank" title="Watch Loom">🎥</a>` : '';
+
+                tr.innerHTML = `
+                    <td class="kb-number">KB-${scenario.id}</td>
+                    <td class="scenario-title">${scenario.title}</td>
+                    <td><span class="type-badge ${typeClass}">${scenario.type}</span></td>
+                    <td><span class="priority-badge ${priorityClass}">${scenario.priority}</span></td>
+                    <td><span class="frequency ${freqClass}">${scenario.frequency}</span></td>
+                    <td class="quick-check">${quickCheckHtml}</td>
+                    <td class="resource-icons">
+                        ${loomIcon}
+                        <a href="#" onclick="showDetail('${scenario.id}'); return false;" title="View Macro">📄</a>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Show detail view
+        function showDetail(scenarioId) {
+            const scenario = scenariosData.scenarios.find(s => s.id === scenarioId);
+            if (!scenario) return;
+
+            const typeClass = `type-${scenario.type.toLowerCase()}`;
+            const priorityClass = `priority-${scenario.priority.toLowerCase()}`;
+
+            const triageHtml = scenario.triage.map(item => `<li>${item}</li>`).join('');
+            const resolutionHtml = scenario.resolution.map(item => `<li>${item}</li>`).join('');
+            const mistakesHtml = scenario.mistakes.map(item => `<li>${item}</li>`).join('');
+
+            const content = `
+                <div class="detail-header">
+                    <div class="detail-kb-number">KB-${scenario.id}</div>
+                    <div class="detail-title">${scenario.title}</div>
+                    <div class="detail-meta">
+                        <span class="type-badge ${typeClass}">${scenario.type}</span>
+                        <span class="priority-badge ${priorityClass}">${scenario.priority}</span>
+                        <span class="frequency">${scenario.frequency}</span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Context</h3>
+                    <p>${scenario.context}</p>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Triage Checklist</h3>
+                    <ul>${triageHtml}</ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Resolution Steps</h3>
+                    <ul>${resolutionHtml}</ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>When to Escalate</h3>
+                    <p>${scenario.escalate}</p>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Common Mistakes</h3>
+                    <ul>${mistakesHtml}</ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Macro Template</h3>
+                    <div class="macro-box">${scenario.macro}</div>
+                    <div class="macro-meta">
+                        💡 Tip: Copy this template and replace [PLACEHOLDERS] with customer-specific information. 
+                        Adjust tone based on the customer's emotion and situation.
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Prevention Tips</h3>
+                    <p>${scenario.prevention}</p>
+                </div>
+
+                <div class="detail-section" style="border-top: 1px solid #e0e0e0; padding-top: 24px; margin-top: 48px;">
+                    <p style="font-size: 12px; color: #616161;">
+                        <strong>Last Updated:</strong> ${scenario.updated}<br>
+                        <strong>Need to update this scenario?</strong> Contact the knowledge bank maintainer.
+                    </p>
+                </div>
+            `;
+
+            document.getElementById('detail-content').innerHTML = content;
+            
+            // Hide all tabs and show detail view
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('detail-view').style.display = 'block';
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Show index
+        function showIndex() {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelector('.tab').classList.add('active');
+            document.getElementById('index').classList.add('active');
+        }
+
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>
