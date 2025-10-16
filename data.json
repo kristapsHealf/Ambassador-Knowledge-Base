@@ -4,8 +4,7 @@
       "id": "001",
       "title": "Customer can't redeem gift (SF sync issue)",
       "type": "Gifting",
-      "frequency": "●●",
-      "priority": "P3",
+      "frequency": "???",
       "quickCheck": [
         "Check gifting campaign status",
         "Verify user in SF or SS",
@@ -14,29 +13,24 @@
       "loomUrl": "https://www.loom.com/share/df4cb2c5bd9542419d150432dd7ed291",
       "context": "This occurs when a customer receives a gift but cannot redeem it due to synchronization issues between our system and Superfiliate. Often the user hasn't been properly onboarded or there's a campaign setup problem.",
       "triage": [
-        "Log into Superfiliate and search for the customer's email",
-        "Check if they appear in active gifting campaign or Milestone is claimed",
-        "If present but inactive, check campaign dates and settings",
-        "Verify their status in Social Snowball as backup",
-        "If missing from both, they need onboarding"
+        "Log into Superfiliate and search for the customer's email. Check if they appear in the gifting campaign roster. Verify their status in Social Snowball as backup. If missing from both, they need onboarding. If present but inactive, check campaign dates and settings."
       ],
       "resolution": [
-        "Either add to gifting campaign or if Shopify Issue tag @Kristaps"
+        "Navigate to practitioners.superfiliate.com/portal/onboarding. Add the customer using their exact email address. Assign them to the appropriate gifting campaign. Verify activation status shows as Active. Test the gift redemption link in incognito mode. Send confirmation macro to customer."
       ],
-      "escalate": "Escalate to Superfiliate support if: user appears correctly configured but gift still won't redeem after 24 hours, or if you see error messages when trying to claim gift (they send screenshot for example)",
+      "escalate": "Escalate to Superfiliate support if: user appears correctly configured but gift still won't redeem after 24 hours, or if you see error messages in the SF dashboard.",
       "mistakes": [
-        "Forgetting to check BOTH SF and SS systems",
-        "Adding user to wrong campaign"
+        "Forgetting to check BOTH SF and SS systems. Adding user to wrong campaign. Not verifying the activation completed. Sending response before testing the fix."
       ],
-      "macro": "Hi [NAME],\n\nThanks for reaching out about redeeming your gift.\n\nHey — I looked into this and you should now be able to log in to your portal and redeem the gift there.\n\nYou can log in here: [PORTAL LINK]\n\nIf you continue to experience any issues, please reach back out.\n\nWith Healf,\n[YOUR NAME]",
+      "macro": "Hi [NAME],\n\nThanks for reaching out about redeeming your gift.\n\nI've looked into this and found that your account needed to be added to our gifting system. I've now onboarded you to Superfiliate and you should be able to redeem your gift.\n\nPlease try using this link: [GIFT LINK]\n\nThe gift should apply automatically when you complete checkout. If you continue to experience any issues, please don't hesitate to reach back out.\n\nWith Healf,\n[YOUR NAME]",
+      "prevention": "Ensure all gifting campaigns have automated onboarding flows. Consider adding a check during the gift creation process to verify recipient accounts exist.",
       "updated": "2024-10-15"
     },
     {
       "id": "002",
       "title": "Gift redemption blocked (product issue)",
       "type": "Gifting",
-      "frequency": "●●",
-      "priority": "P2",
+      "frequency": "??",
       "quickCheck": [
         "Audit Shopify products",
         "Check campaign + user active",
@@ -45,37 +39,24 @@
       "loomUrl": "https://www.loom.com/share/44346f9ff33143c7b302c99ba18101b3",
       "context": "Customer has been properly onboarded but the specific products they're trying to purchase with their gift aren't properly configured in Shopify or the gifting campaign.",
       "triage": [
-        "Confirm the customer IS in Superfiliate and active",
-        "Log into Shopify and check the specific product availability",
-        "Verify product is included in the gifting campaign settings",
-        "Check if product is out of stock or hidden",
-        "Review campaign product restrictions"
+        "Confirm the customer IS in Superfiliate and active. Log into Shopify and check the specific product availability. Verify product is included in the gifting campaign settings. Check if product is out of stock or hidden. Review campaign product restrictions."
       ],
       "resolution": [
-        "In Shopify: Products → Search for the item customer wants",
-        "Verify product is published and available",
-        "Check inventory levels",
-        "In Superfiliate: Navigate to the campaign settings",
-        "Ensure product is in the allowed list (or not in exclusion list)",
-        "If issue found, add product or remove restriction",
-        "Test redemption in incognito",
-        "If all looks correct but still failing, escalate to Superfiliate"
+        "In Shopify: Products ? Search for the item customer wants. Verify product is published and available. Check inventory levels. In Superfiliate: Navigate to the campaign settings. Ensure product is in the allowed list (or not in exclusion list). If issue found, add product or remove restriction. Test redemption in incognito. If all looks correct but still failing, escalate to Superfiliate."
       ],
       "escalate": "Escalate to Superfiliate if: products are properly configured but redemption still fails, or if you need campaign-level permissions you don't have.",
       "mistakes": [
-        "Not checking actual product availability in Shopify",
-        "Assuming campaign allows all products",
-        "Forgetting to test after making changes"
+        "Not checking actual product availability in Shopify. Assuming campaign allows all products. Forgetting to test after making changes."
       ],
       "macro": "Hi [NAME],\n\nThanks for your patience. I've investigated the gift redemption issue.\n\nI found that [SPECIFIC ISSUE - e.g., \"the product was temporarily out of stock\" or \"the campaign settings needed adjustment\"]. I've now resolved this and your gift should work properly.\n\nPlease try again: [GIFT LINK]\n\nSelect your items and proceed to checkout. The discount will apply automatically. Let me know if you need any assistance!\n\nWith Healf,\n[YOUR NAME]",
+      "prevention": "Regular audits of Shopify product availability. Set up alerts for out-of-stock items in active gifting campaigns.",
       "updated": "2024-10-14"
     },
     {
       "id": "003",
       "title": "Customer reports discount not applying",
       "type": "Discount",
-      "frequency": "●●●",
-      "priority": "P2",
+      "frequency": "???",
       "quickCheck": [
         "Verify in SF/SS systems",
         "Explain auto-apply popup",
@@ -84,32 +65,24 @@
       "loomUrl": "https://www.loom.com/share/b5d62847fe3448409f7d5bcb9b8f0a06",
       "context": "Most common scenario. Usually the discount IS working but the customer either missed the popup confirmation or doesn't understand that it only applies to one-time purchases, not subscriptions.",
       "triage": [
-        "Ask customer if they're ordering one-time or subscription",
-        "Verify in Superfiliate that their unique code exists",
-        "Check Social Snowball for code status",
-        "Confirm they're using THEIR unique link (not a generic one)"
+        "Ask customer if they're ordering one-time or subscription. Verify in Superfiliate that their unique code exists. Check Social Snowball for code status. Confirm they're using THEIR unique link (not a generic one)."
       ],
       "resolution": [
-        "If subscription: Explain politely that discount is one-time only",
-        "If one-time: Walk through the auto-apply popup behavior",
-        "If code issue: Verify code prefix matches their practitioner prefix",
-        "Test their unique link in incognito to confirm it works",
-        "Send the educational macro explaining how it works"
+        "If subscription: Explain politely that discount is one-time only. If one-time: Walk through the auto-apply popup behavior. If code issue: Verify code prefix matches their practitioner prefix. Test their unique link in incognito to confirm it works. Send the educational macro explaining how it works."
       ],
       "escalate": "Escalate if: code doesn't exist in either SF or SS, or if one-time purchase legitimately doesn't show discount.",
       "mistakes": [
-        "Not asking about subscription vs one-time upfront",
-        "Assuming technical issue before confirming the basics",
-        "Not actually testing their link before responding"
+        "Not asking about subscription vs one-time upfront. Assuming technical issue before confirming the basics. Not actually testing their link before responding."
       ],
       "macro": "Hi [NAME],\n\nThanks for reaching out. I'm writing to confirm how the 10% client discount works on your Healf link.\n\nWhen clients shop through your unique link, the 10% discount is applied automatically. A small pop-up in the bottom left confirms it's active and then closes on its own.\n\nClients do not need to enter a code. Each client is assigned a one-time code (starting with your prefix [CODE PREFIX], followed by unique digits) that applies automatically to the checkout when they use your link. The code cannot be reused and only works when the client accesses the site via your unique link.\n\n**Important:** The discount applies to one-time purchases only. It does not apply to subscriptions.\n\nI've tested your link and confirmed it's working properly. If your client continues to have issues, please ask them to:\n1. Use your unique link in a private/incognito browser\n2. Ensure they're purchasing one-time products (not subscriptions)\n3. Look for the small confirmation popup in the bottom left\n\nLet me know if there's anything else I can clarify.\n\nBest,\n[YOUR NAME]",
+      "prevention": "Add clearer messaging on the checkout page about subscription exclusions. Consider adding a FAQ section to practitioner dashboards.",
       "updated": "2024-10-16"
     },
     {
       "id": "004",
       "title": "Practitioner wants to use own discount",
       "type": "Account",
-      "frequency": "●●●",
+      "frequency": "???",
       "quickCheck": [
         "YES - click own link to use",
         "NO commission on own orders",
@@ -118,23 +91,16 @@
       "loomUrl": "",
       "context": "Very common question from new practitioners. They want to know if they can benefit from their own referral link.",
       "triage": [
-        "Confirm they have practitioner status (not just ambassador)",
-        "Check their account type in Superfiliate",
-        "Verify they understand the no-commission policy"
+        "Confirm they have practitioner status (not just ambassador). Check their account type in Superfiliate. Verify they understand the no-commission policy."
       ],
       "resolution": [
-        "Explain YES they can use their own link",
-        "Clarify they will NOT earn commission on their own orders",
-        "Explain 20% cashback benefit for practitioners (if applicable)",
-        "Walk them through: click own link → shop → checkout"
+        "Explain YES they can use their own link. Clarify they will NOT earn commission on their own orders. Explain 20% cashback benefit for practitioners (if applicable). Walk them through: click own link ? shop ? checkout."
       ],
       "escalate": "Rarely needs escalation. Only if there's confusion about account type or cashback not applying.",
       "mistakes": [
-        "Not clarifying the no-commission rule upfront",
-        "Confusing cashback percentage with discount percentage",
-        "Forgetting to mention they must use their own link (not just any discount code)"
+        "Not clarifying the no-commission rule upfront. Confusing cashback percentage with discount percentage. Forgetting to mention they must use their own link (not just any discount code)."
       ],
-      "macro": "Hi [NAME],\n\nGreat question! Yes, you can absolutely use your practitioner discount for yourself.\n\nHere's how it works:\n\n**To use your discount:**\nClick your own unique referral link and shop as normal. The discount will apply automatically at checkout.\n\n**Important notes:**\n• You will NOT earn commission on your own purchases\n• As a practitioner, you receive 20% cashback on your Healf orders\n• You must access the site through your unique link for this to work\n\nYour link: [PRACTITIONER LINK]\n\nEnjoy your order!\n\nBest,\n[YOUR NAME]",
+      "macro": "Hi [NAME],\n\nGreat question! Yes, you can absolutely use your practitioner discount for yourself.\n\nHere's how it works:\n\n**To use your discount:**\nClick your own unique referral link and shop as normal. The discount will apply automatically at checkout.\n\n**Important notes:**\n? You will NOT earn commission on your own purchases\n? As a practitioner, you receive 20% cashback on your Healf orders\n? You must access the site through your unique link for this to work\n\nYour link: [PRACTITIONER LINK]\n\nEnjoy your order!\n\nBest,\n[YOUR NAME]",
       "prevention": "Add this to the practitioner onboarding email and FAQ section.",
       "updated": "2024-10-13"
     },
@@ -142,7 +108,7 @@
       "id": "005",
       "title": "New practitioner wants to sign up",
       "type": "Account",
-      "frequency": "●●",
+      "frequency": "??",
       "quickCheck": [
         "Verify credentials",
         "Send signup link",
@@ -151,23 +117,16 @@
       "loomUrl": "https://www.loom.com/share/9de51291242a43ea998350a903774058",
       "context": "Someone interested in becoming a practitioner reaches out. Need to verify credentials and guide through signup.",
       "triage": [
-        "Ask about their professional credentials",
-        "Verify they meet practitioner requirements",
-        "Check if email matches professional credentials"
+        "Ask about their professional credentials. Verify they meet practitioner requirements. Check if email matches professional credentials."
       ],
       "resolution": [
-        "If qualified: send signup link with instructions",
-        "If not qualified: explain requirements politely",
-        "Follow up after 48 hours if no signup completion",
-        "Add to onboarding nurture sequence"
+        "If qualified: send signup link with instructions. If not qualified: explain requirements politely. Follow up after 48 hours if no signup completion. Add to onboarding nurture sequence."
       ],
       "escalate": "Escalate if: credentials are borderline or unclear, or if they request special commission terms.",
       "mistakes": [
-        "Not verifying credentials before sending link",
-        "Forgetting to explain the full benefits package",
-        "No follow-up if they don't complete signup"
+        "Not verifying credentials before sending link. Forgetting to explain the full benefits package. No follow-up if they don't complete signup."
       ],
-      "macro": "Hi [NAME],\n\nThanks for your interest in the Healf Practitioner Programme!\n\nYou can sign up here: https://practitioners.superfiliate.com/portal/onboarding\n\nPlease register with this email address and complete the short sign-up form. Once approved, you'll get:\n\n• A personalised referral link for your clients — they get 10% off, and it tracks your commission\n• 20% cashback on your own Healf orders\n• A dashboard to curate your storefront and monitor referrals\n• Access to practitioner-only resources and training\n\nThe approval process typically takes 24-48 hours. If you have any questions during sign-up, just reply to this message and I'll help.\n\nWith Healf,\n[YOUR NAME]",
+      "macro": "Hi [NAME],\n\nThanks for your interest in the Healf Practitioner Programme!\n\nYou can sign up here: https://practitioners.superfiliate.com/portal/onboarding\n\nPlease register with this email address and complete the short sign-up form. Once approved, you'll get:\n\n? A personalised referral link for your clients ? they get 10% off, and it tracks your commission\n? 20% cashback on your own Healf orders\n? A dashboard to curate your storefront and monitor referrals\n? Access to practitioner-only resources and training\n\nThe approval process typically takes 24-48 hours. If you have any questions during sign-up, just reply to this message and I'll help.\n\nWith Healf,\n[YOUR NAME]",
       "prevention": "Create automated email sequence for practitioner signups with FAQs and timeline.",
       "updated": "2024-10-12"
     },
@@ -175,7 +134,7 @@
       "id": "006",
       "title": "Can't find or create storefront",
       "type": "Account",
-      "frequency": "●●",
+      "frequency": "??",
       "quickCheck": [
         "Confirm they're logged in",
         "Direct to Storefront tab",
@@ -184,24 +143,16 @@
       "loomUrl": "",
       "context": "Practitioner can't locate the Storefront tab in their portal or doesn't understand how to customize it.",
       "triage": [
-        "Confirm they're logged into the correct portal",
-        "Check their account approval status",
-        "Verify browser compatibility (sometimes tab doesn't show in old browsers)"
+        "Confirm they're logged into the correct portal. Check their account approval status. Verify browser compatibility (sometimes tab doesn't show in old browsers)."
       ],
       "resolution": [
-        "Guide them to log in at practitioners.superfiliate.com/portal",
-        "Look for \"Storefront\" tab in main navigation",
-        "If tab missing: check account status (might not be fully approved)",
-        "If present but confusing: walk through basic customization",
-        "Send screenshot or Loom if needed"
+        "Guide them to log in at practitioners.superfiliate.com/portal. Look for Storefront tab in main navigation. If tab missing: check account status (might not be fully approved). If present but confusing: walk through basic customization. Send screenshot or Loom if needed."
       ],
       "escalate": "Escalate if: account is approved but tab genuinely missing after browser refresh.",
       "mistakes": [
-        "Assuming it's a technical bug before checking account status",
-        "Not asking which portal they're logged into",
-        "Giving instructions without confirming they see the same interface"
+        "Assuming it's a technical bug before checking account status. Not asking which portal they're logged into. Giving instructions without confirming they see the same interface."
       ],
-      "macro": "Hi [NAME],\n\nThank you for your message. The Storefront tab is already available in your portal.\n\nTo access it:\n1. Log in at https://practitioners.superfiliate.com/portal\n2. Look for the \"Storefront\" tab in the main navigation\n3. Click it to begin customizing your storefront\n\nIf you don't see this tab, please:\n• Clear your browser cache and refresh\n• Try a different browser (Chrome or Safari recommended)\n• Confirm your account status shows as \"Approved\"\n\nOnce you're in the Storefront section, you can add products, write descriptions, and customize your page.\n\nLet me know if you encounter any issues or need help with customization!\n\nBest,\n[YOUR NAME]",
+      "macro": "Hi [NAME],\n\nThank you for your message. The Storefront tab is already available in your portal.\n\nTo access it:\n1. Log in at https://practitioners.superfiliate.com/portal\n2. Look for the \"Storefront\" tab in the main navigation\n3. Click it to begin customizing your storefront\n\nIf you don't see this tab, please:\n? Clear your browser cache and refresh\n? Try a different browser (Chrome or Safari recommended)\n? Confirm your account status shows as \"Approved\"\n\nOnce you're in the Storefront section, you can add products, write descriptions, and customize your page.\n\nLet me know if you encounter any issues or need help with customization!\n\nBest,\n[YOUR NAME]",
       "prevention": "Add Storefront setup to the welcome email with screenshots.",
       "updated": "2024-10-11"
     },
@@ -209,7 +160,7 @@
       "id": "007",
       "title": "Birthday gift card request",
       "type": "Gifting",
-      "frequency": "●",
+      "frequency": "?",
       "quickCheck": [
         "Check eligibility criteria",
         "Verify birthday in system",
@@ -218,23 +169,16 @@
       "loomUrl": "https://www.loom.com/share/dedf1d6456c44a21b537b5af615e7225",
       "context": "Customer or practitioner asking about birthday gift cards. Policy and eligibility varies.",
       "triage": [
-        "Check customer account for birthday on file",
-        "Verify eligibility (usually requires prior purchase history)",
-        "Review current birthday gift card policy",
-        "Check if automated system already sent one"
+        "Check customer account for birthday on file. Verify eligibility (usually requires prior purchase history). Review current birthday gift card policy. Check if automated system already sent one."
       ],
       "resolution": [
-        "If eligible: process manual gift card or confirm auto-send",
-        "If not eligible: explain policy kindly",
-        "Update birthday in system if missing",
-        "Add to birthday campaign for next year"
+        "If eligible: process manual gift card or confirm auto-send. If not eligible: explain policy kindly. Update birthday in system if missing. Add to birthday campaign for next year."
       ],
       "escalate": "Escalate if: policy is unclear or customer claims they should be eligible but system says no.",
       "mistakes": [
-        "Making promises about gift cards without checking policy",
-        "Not documenting the request for future reference"
+        "Making promises about gift cards without checking policy. Not documenting the request for future reference."
       ],
-      "macro": "Hi [NAME],\n\nHappy birthday! 🎉\n\nI've reviewed your account and [OUTCOME - e.g., \"you qualify for a birthday gift card\" OR \"our birthday program requires X\"].\n\n[IF ELIGIBLE:]\nI've sent a gift card to your email. It should arrive within 24 hours and will be valid for [DURATION].\n\n[IF NOT ELIGIBLE:]\nWhile you're not currently eligible for our birthday program, we'd love to celebrate with you! Here's a [ALTERNATIVE OFFER] as our birthday gift to you.\n\nThank you for being part of the Healf community!\n\nBest,\n[YOUR NAME]",
+      "macro": "Hi [NAME],\n\nHappy birthday! ?\n\nI've reviewed your account and [OUTCOME - e.g., \"you qualify for a birthday gift card\" OR \"our birthday program requires X\"].\n\n[IF ELIGIBLE:]\nI've sent a gift card to your email. It should arrive within 24 hours and will be valid for [DURATION].\n\n[IF NOT ELIGIBLE:]\nWhile you're not currently eligible for our birthday program, we'd love to celebrate with you! Here's a [ALTERNATIVE OFFER] as our birthday gift to you.\n\nThank you for being part of the Healf community!\n\nBest,\n[YOUR NAME]",
       "prevention": "Automate birthday gift card sends so manual requests are rare.",
       "updated": "2024-10-10"
     },
@@ -242,8 +186,7 @@
       "id": "008",
       "title": "Wrong link used since migration",
       "type": "Technical",
-      "priority": "P1",
-      "frequency": "●●",
+      "frequency": "?",
       "quickCheck": [
         "Identify old vs new link",
         "Update in all channels",
@@ -252,25 +195,16 @@
       "loomUrl": "https://www.loom.com/share/1228292fbdd44a4a861f709f607b3f1c",
       "context": "After system migration, practitioner has been sharing outdated link. Attribution may be lost.",
       "triage": [
-        "Identify which old link they've been using",
-        "Check if old link redirects properly",
-        "Review attribution data for missed commissions. This is crucial and let's ensure no one is upset about losing comission here",
-        "Get list of all channels where old link was shared"
+        "Identify which old link they've been using. Check if old link redirects properly. Review attribution data for missed commissions. Get list of all channels where old link was shared."
       ],
       "resolution": [
-        "Provide correct new link",
-        "Explain difference between old and new format",
-        "Guide through updating link in: email signature, website, social media",
-        "Review attribution history and flag for commission adjustment if needed",
-        "Set up redirect from old link if possible"
+        "Provide correct new link. Explain difference between old and new format. Guide through updating link in: email signature, website, social media. Review attribution history and flag for commission adjustment if needed. Set up redirect from old link if possible."
       ],
       "escalate": "Escalate to tech team if: old link doesn't redirect, or if significant commission loss needs manual adjustment.",
       "mistakes": [
-        "Not checking all channels where they shared the link",
-        "Forgetting to address historical attribution concerns",
-        "Not providing clear \"find and replace\" instructions"
+        "Not checking all channels where they shared the link. Forgetting to address historical attribution concerns. Not providing clear find and replace instructions."
       ],
-      "macro": "Hi [NAME],\n\nThanks for bringing this to my attention. I can see you've been using an outdated link since our system migration.\n\n**Your new link:**\n[NEW LINK]\n\n**Where to update it:**\n• Email signature\n• Website bio or resources page\n• Social media profiles\n• Any saved templates or documents\n\nI've reviewed your account and will follow up separately about attribution for any orders that may have been affected during the transition period.\n\nPlease update your link in all locations and confirm once complete. The new link will track properly going forward.\n\nIf you need help updating any specific platform, let me know!\n\nBest,\n[YOUR NAME]",
+      "macro": "Hi [NAME],\n\nThanks for bringing this to my attention. I can see you've been using an outdated link since our system migration.\n\n**Your new link:**\n[NEW LINK]\n\n**Where to update it:**\n? Email signature\n? Website bio or resources page\n? Social media profiles\n? Any saved templates or documents\n\nI've reviewed your account and will follow up separately about attribution for any orders that may have been affected during the transition period.\n\nPlease update your link in all locations and confirm once complete. The new link will track properly going forward.\n\nIf you need help updating any specific platform, let me know!\n\nBest,\n[YOUR NAME]",
       "prevention": "Send proactive emails during migrations with clear instructions and deadlines.",
       "updated": "2024-10-09"
     },
@@ -278,7 +212,7 @@
       "id": "009",
       "title": "Discount fails (SF code ownership issue)",
       "type": "Discount",
-      "frequency": "●",
+      "frequency": "?",
       "quickCheck": [
         "Check code ownership in SF",
         "Verify prefix matches",
@@ -287,30 +221,19 @@
       "loomUrl": "https://www.loom.com/share/d6f7bbf833c64047a27b7f951fe8d72f",
       "context": "Technical issue where discount code is assigned to wrong practitioner or has ownership conflict in Superfiliate.",
       "triage": [
-        "Log into Superfiliate admin",
-        "Search for the specific discount code",
-        "Check code ownership assignment",
-        "Verify code prefix matches practitioner",
-        "Look for duplicate codes or conflicts"
+        "Log into Superfiliate admin. Search for the specific discount code. Check code ownership assignment. Verify code prefix matches practitioner. Look for duplicate codes or conflicts."
       ],
       "resolution": [
-        "In SF: Navigate to Codes section",
-        "Find the problematic code",
-        "Check \"Assigned to\" field",
-        "If wrong: reassign to correct practitioner",
-        "If duplicate: deactivate one and regenerate",
-        "Test the fix in incognito mode",
-        "Document the issue for pattern tracking"
+        "In SF: Navigate to Codes section. Find the problematic code. Check Assigned to field. If wrong: reassign to correct practitioner. If duplicate: deactivate one and regenerate. Test the fix in incognito mode. Document the issue for pattern tracking."
       ],
       "escalate": "Escalate to Superfiliate support if: code ownership is locked and you can't reassign, or if issue affects multiple codes.",
       "mistakes": [
-        "Trying to fix without admin access",
-        "Reassigning without deactivating the old code",
-        "Not testing after the fix"
+        "Trying to fix without admin access. Reassigning without deactivating the old code. Not testing after the fix."
       ],
       "macro": "Hi [NAME],\n\nThanks for your patience while I investigated the discount issue.\n\nI found that there was a technical issue with code ownership in our system. I've now corrected this and your discount should work properly.\n\nPlease test it here: [UNIQUE LINK]\n\nThe discount will apply automatically when your clients use your link. If you notice any further issues, please reach out immediately so I can investigate.\n\nI apologize for the inconvenience!\n\nBest,\n[YOUR NAME]",
       "prevention": "Implement automated code ownership validation during practitioner onboarding.",
       "updated": "2024-10-08"
     }
-  ]
+  ],
+  "lastSync": "2025-10-16T18:30:56.480Z"
 }
