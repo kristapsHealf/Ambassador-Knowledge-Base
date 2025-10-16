@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ambassador-Knowledge-Base</title>
+    <title>Ambassador Knowledge Bank</title>
     <style>
         * {
             margin: 0;
@@ -369,7 +369,7 @@
         <!-- Tab 1: Knowledge Index -->
         <div id="index" class="tab-content active">
             <div class="table-container">
-                <div class="loading" id="loading">Loading knowledge bank....</div>
+                <div class="loading" id="loading">Loading knowledge bank...</div>
                 <div class="error" id="error" style="display: none;"></div>
                 <table id="scenarios-table" style="display: none;">
                     <thead>
@@ -505,19 +505,41 @@
         // Load data from JSON file
         async function loadData() {
             try {
-                const response = await fetch('data.json');
+                // Add cache-busting timestamp to force fresh load
+                const timestamp = new Date().getTime();
+                const response = await fetch(`data.json?v=${timestamp}`, {
+                    cache: 'no-cache',
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache'
+                    }
+                });
+                
                 if (!response.ok) {
-                    throw new Error('Failed to load data');
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
+                
                 scenariosData = await response.json();
+                
+                if (!scenariosData.scenarios || scenariosData.scenarios.length === 0) {
+                    throw new Error('No scenarios found in data.json');
+                }
+                
                 renderTable();
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('scenarios-table').style.display = 'table';
+                
             } catch (error) {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('error').style.display = 'block';
-                document.getElementById('error').textContent = 
-                    'Error loading knowledge bank. Please ensure data.json exists in the same folder.';
+                document.getElementById('error').innerHTML = 
+                    '<strong>Error loading knowledge bank.</strong><br><br>' +
+                    'Technical details: ' + error.message + '<br><br>' +
+                    'Troubleshooting:<br>' +
+                    '1. Verify data.json exists: <a href="data.json" target="_blank" style="color: #1565c0;">Open data.json</a><br>' +
+                    '2. Try hard refresh: Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)<br>' +
+                    '3. Clear browser cache completely<br>' +
+                    '4. Try in incognito/private window<br>';
                 console.error('Error loading data:', error);
             }
         }
@@ -531,12 +553,12 @@
                 const tr = document.createElement('tr');
                 tr.onclick = () => showDetail(scenario.id);
 
-                const typeClass = `type-${scenario.type.toLowerCase()}`;
-                const priorityClass = `priority-${scenario.priority.toLowerCase()}`;
+                const typeClass = `type-${(scenario.type || 'general').toLowerCase()}`;
+                const priorityClass = `priority-${(scenario.priority || 'p3').toLowerCase()}`;
                 const freqClass = scenario.frequency === '●●●' ? 'freq-common' : 
                                  scenario.frequency === '●●' ? 'freq-occasional' : 'freq-rare';
 
-                const quickCheckHtml = scenario.quickCheck
+                const quickCheckHtml = (scenario.quickCheck || [])
                     .map((item, i) => `<div class="quick-check-item">${i + 1}. ${item}</div>`)
                     .join('');
 
@@ -545,10 +567,10 @@
 
                 tr.innerHTML = `
                     <td class="kb-number">KB-${scenario.id}</td>
-                    <td class="scenario-title">${scenario.title}</td>
-                    <td><span class="type-badge ${typeClass}">${scenario.type}</span></td>
-                    <td><span class="priority-badge ${priorityClass}">${scenario.priority}</span></td>
-                    <td><span class="frequency ${freqClass}">${scenario.frequency}</span></td>
+                    <td class="scenario-title">${scenario.title || 'Untitled'}</td>
+                    <td><span class="type-badge ${typeClass}">${scenario.type || 'General'}</span></td>
+                    <td><span class="priority-badge ${priorityClass}">${scenario.priority || 'P3'}</span></td>
+                    <td><span class="frequency ${freqClass}">${scenario.frequency || '●'}</span></td>
                     <td class="quick-check">${quickCheckHtml}</td>
                     <td class="resource-icons">
                         ${loomIcon}
@@ -564,52 +586,52 @@
             const scenario = scenariosData.scenarios.find(s => s.id === scenarioId);
             if (!scenario) return;
 
-            const typeClass = `type-${scenario.type.toLowerCase()}`;
-            const priorityClass = `priority-${scenario.priority.toLowerCase()}`;
+            const typeClass = `type-${(scenario.type || 'general').toLowerCase()}`;
+            const priorityClass = `priority-${(scenario.priority || 'p3').toLowerCase()}`;
 
-            const triageHtml = scenario.triage.map(item => `<li>${item}</li>`).join('');
-            const resolutionHtml = scenario.resolution.map(item => `<li>${item}</li>`).join('');
-            const mistakesHtml = scenario.mistakes.map(item => `<li>${item}</li>`).join('');
+            const triageHtml = (scenario.triage || []).map(item => `<li>${item}</li>`).join('');
+            const resolutionHtml = (scenario.resolution || []).map(item => `<li>${item}</li>`).join('');
+            const mistakesHtml = (scenario.mistakes || []).map(item => `<li>${item}</li>`).join('');
 
             const content = `
                 <div class="detail-header">
                     <div class="detail-kb-number">KB-${scenario.id}</div>
-                    <div class="detail-title">${scenario.title}</div>
+                    <div class="detail-title">${scenario.title || 'Untitled'}</div>
                     <div class="detail-meta">
-                        <span class="type-badge ${typeClass}">${scenario.type}</span>
-                        <span class="priority-badge ${priorityClass}">${scenario.priority}</span>
-                        <span class="frequency">${scenario.frequency}</span>
+                        <span class="type-badge ${typeClass}">${scenario.type || 'General'}</span>
+                        <span class="priority-badge ${priorityClass}">${scenario.priority || 'P3'}</span>
+                        <span class="frequency">${scenario.frequency || '●'}</span>
                     </div>
                 </div>
 
                 <div class="detail-section">
                     <h3>Context</h3>
-                    <p>${scenario.context}</p>
+                    <p>${scenario.context || 'No context provided.'}</p>
                 </div>
 
                 <div class="detail-section">
                     <h3>Triage Checklist</h3>
-                    <ul>${triageHtml}</ul>
+                    <ul>${triageHtml || '<li>No triage steps provided.</li>'}</ul>
                 </div>
 
                 <div class="detail-section">
                     <h3>Resolution Steps</h3>
-                    <ul>${resolutionHtml}</ul>
+                    <ul>${resolutionHtml || '<li>No resolution steps provided.</li>'}</ul>
                 </div>
 
                 <div class="detail-section">
                     <h3>When to Escalate</h3>
-                    <p>${scenario.escalate}</p>
+                    <p>${scenario.escalate || 'No escalation criteria provided.'}</p>
                 </div>
 
                 <div class="detail-section">
                     <h3>Common Mistakes</h3>
-                    <ul>${mistakesHtml}</ul>
+                    <ul>${mistakesHtml || '<li>No common mistakes documented.</li>'}</ul>
                 </div>
 
                 <div class="detail-section">
                     <h3>Macro Template</h3>
-                    <div class="macro-box">${scenario.macro}</div>
+                    <div class="macro-box">${scenario.macro || 'No macro template available.'}</div>
                     <div class="macro-meta">
                         💡 Tip: Copy this template and replace [PLACEHOLDERS] with customer-specific information. 
                         Adjust tone based on the customer's emotion and situation.
@@ -618,12 +640,12 @@
 
                 <div class="detail-section">
                     <h3>Prevention Tips</h3>
-                    <p>${scenario.prevention}</p>
+                    <p>${scenario.prevention || 'No prevention tips provided.'}</p>
                 </div>
 
                 <div class="detail-section" style="border-top: 1px solid #e0e0e0; padding-top: 24px; margin-top: 48px;">
                     <p style="font-size: 12px; color: #616161;">
-                        <strong>Last Updated:</strong> ${scenario.updated}<br>
+                        <strong>Last Updated:</strong> ${scenario.updated || 'Unknown'}<br>
                         <strong>Need to update this scenario?</strong> Contact the knowledge bank maintainer.
                     </p>
                 </div>
