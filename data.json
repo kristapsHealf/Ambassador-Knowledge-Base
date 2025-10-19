@@ -4,7 +4,7 @@
       "id": "001",
       "title": "Customer can't redeem gift (SF sync issue)",
       "type": "Gifting",
-      "frequency": "test",
+      "frequency": "???",
       "quickCheck": [
         "Check gifting campaign status",
         "Verify user in SF or SS",
@@ -30,7 +30,7 @@
       "id": "002",
       "title": "Gift redemption blocked (product issue)",
       "type": "Gifting",
-      "frequency": "??",
+      "frequency": "..",
       "quickCheck": [
         "Audit Shopify products",
         "Check campaign + user active",
@@ -56,7 +56,7 @@
       "id": "003",
       "title": "Customer reports discount not applying",
       "type": "Discount",
-      "frequency": "???",
+      "frequency": "...",
       "quickCheck": [
         "Verify in SF/SS systems",
         "Explain auto-apply popup",
@@ -82,7 +82,7 @@
       "id": "004",
       "title": "Practitioner wants to use own discount",
       "type": "Account",
-      "frequency": "???",
+      "frequency": "...",
       "quickCheck": [
         "YES - click own link to use",
         "NO commission on own orders",
@@ -108,7 +108,7 @@
       "id": "005",
       "title": "New practitioner wants to sign up",
       "type": "Account",
-      "frequency": "??",
+      "frequency": "..",
       "quickCheck": [
         "Verify credentials",
         "Send signup link",
@@ -134,7 +134,7 @@
       "id": "006",
       "title": "Can't find or create storefront",
       "type": "Account",
-      "frequency": "??",
+      "frequency": "..",
       "quickCheck": [
         "Confirm they're logged in",
         "Direct to Storefront tab",
@@ -160,7 +160,7 @@
       "id": "007",
       "title": "Birthday gift card request",
       "type": "Gifting",
-      "frequency": "?",
+      "frequency": ".",
       "quickCheck": [
         "Check eligibility criteria",
         "Verify birthday in system",
@@ -186,7 +186,7 @@
       "id": "008",
       "title": "Wrong link used since migration",
       "type": "Technical",
-      "frequency": "?",
+      "frequency": ".",
       "quickCheck": [
         "Identify old vs new link",
         "Update in all channels",
@@ -212,7 +212,7 @@
       "id": "009",
       "title": "Discount fails (SF code ownership issue)",
       "type": "Discount",
-      "frequency": "?",
+      "frequency": ".",
       "quickCheck": [
         "Check code ownership in SF",
         "Verify prefix matches",
@@ -235,5 +235,5 @@
       "updated": "2024-10-08"
     }
   ],
-  "lastSync": "2025-10-19T17:25:46.205Z"
+  "lastSync": "2025-10-19T17:30:05.322Z"
 }
