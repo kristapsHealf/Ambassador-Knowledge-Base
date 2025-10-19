@@ -4,7 +4,7 @@
       "id": "001",
       "title": "Customer can't redeem gift (SF sync issue)",
       "type": "Gifting",
-      "frequency": "???",
+      "frequency": "...",
       "quickCheck": [
         "Check gifting campaign status",
         "Verify user in SF or SS",
@@ -235,5 +235,5 @@
       "updated": "2024-10-08"
     }
   ],
-  "lastSync": "2025-10-19T17:30:05.322Z"
+  "lastSync": "2025-10-19T17:32:10.208Z"
 }
